@@ -244,7 +244,7 @@ proc board::draw_segments {x1 y1 x2 y2 light dark edge} {
 
 
 proc board::draw_segment {color args} {
-    .main.board create polygon {*}$args -fill $color
+    .main.board create polygon {*}$args -fill $color -outline ""
 }
 
 

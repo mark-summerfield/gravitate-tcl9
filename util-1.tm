@@ -19,7 +19,7 @@ proc util::commas x {
 
 proc util::get_ini_filename {} {
     set home [file home]
-    set names {}
+    set names [list]
     if {[tk windowingsystem] eq "win32"} {
         lappend names [file join $home gravitate.ini] $::PATH/gravitate.ini
         set index 0
