@@ -143,9 +143,7 @@ proc options_form::on_ok {} {
 }
 
 
-proc options_form::on_close {} {
-    do_close
-}
+proc options_form::on_close {} { do_close }
 
 
 proc options_form::do_close {{result false}} {

@@ -35,14 +35,10 @@ proc actions::on_options {} {
 }
 
 
-proc actions::on_about {} {
-    about_form::show_modal
-}
+proc actions::on_about {} { about_form::show_modal }
 
 
-proc actions::on_help {} {
-    help_form::show
-}
+proc actions::on_help {} { help_form::show }
 
 
 proc actions::on_quit {} {

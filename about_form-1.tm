@@ -82,7 +82,7 @@ proc about_form::populate_about_text {} {
                             \nAll Rights Reserved.\n" {center green}
     .about.text insert end "License: GPLv3.\n" {center green}
     .about.text insert end "[string repeat " " 60]\n" {center hr}
-    .about.text insert end "Tcl v$::tcl_patchLevel ${bits}-bit on\
+    .about.text insert end "Tcl/Tk $::tcl_patchLevel ${bits}-bit on\
         $::tcl_platform(os) $::tcl_platform(osVersion)\
         $::tcl_platform(machine).\n" center
 }

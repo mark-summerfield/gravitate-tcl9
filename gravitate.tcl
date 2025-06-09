@@ -1,8 +1,8 @@
 #!/usr/bin/env wish9
 # Copyright © 2020-25 Mark Summerfield. All rights reserved.
 
-const PATH [file normalize [file dirname [info script]]]
-tcl::tm::path add $PATH
+const APPPATH [file normalize [file dirname [info script]]]
+tcl::tm::path add $APPPATH
 
 package require prepare_gui
 

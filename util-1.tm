@@ -8,7 +8,7 @@ namespace eval util {}
 proc util::icon {svg {width 0}} {
     set opt [expr {$width ? [list -format [
         list svg -scaletowidth $width]] : ""}]
-    image create photo -file $::PATH/images/$svg {*}$opt
+    image create photo -file $::APPPATH/images/$svg {*}$opt
 }
 
 
@@ -21,11 +21,13 @@ proc util::get_ini_filename {} {
     set home [file home]
     set names [list]
     if {[tk windowingsystem] eq "win32"} {
-        lappend names [file join $home gravitate.ini] $::PATH/gravitate.ini
+        lappend names [file join $home gravitate.ini] \
+                      $::APPPATH/gravitate.ini
         set index 0
     } else {
         lappend names [file join $home .config/gravitate.ini] \
-                      [file join $home .gravitate.ini] $::PATH/gravitate.ini
+                      [file join $home .gravitate.ini] \
+                      $::APPPATH/gravitate.ini
         set index [expr {[file isdirectory [
                             file join $home .config]] ? 0 : 1}]
     }
@@ -79,6 +81,4 @@ proc util::open_webpage url {
 }
 
 
-proc util::isnan x {
-    return [expr {![string is double $x] || $x != $x}]
-}
+proc util::isnan x { return [expr {![string is double $x] || $x != $x}] }
