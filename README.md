@@ -6,7 +6,7 @@ A SameGame/TileFall-like game written in Tcl/Tk 9.
 
 ## Dependencies
 
-Tcl, Tcllib, Tk, Tklib, all version 9.0.0 or better.
+Tcl/Tk 9.0.0 or better, plus Tcllib 2 and Tklib 0.9 or better.
 
 ## License
 
