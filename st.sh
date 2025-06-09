@@ -6,7 +6,7 @@ nagelfar.sh \
     | grep -v Found.constant.. \
     | grep -v Wrong.number.of.arguments.*to..actions::on_game_over \
     | grep -v Wrong.number.of.arguments.*to..ini::open \
-    | grep -v gravitate.tcl.*Unknown.variable..PATH \
+    | grep -v gravitate.tcl.*Unknown.variable..APPPATH \
     | grep -v board.*tm.*Suspicious.variable.*board::drawing \
     | grep -v board.*tm.*Unknown.variable.*dark \
     | grep -v board.*tm.*Unknown.variable.*height \
