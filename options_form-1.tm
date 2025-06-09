@@ -1,7 +1,8 @@
 #!/usr/bin/env wish
 # Copyright © 2020-25 Mark Summerfield. All rights reserved.
 
-package require tooltip
+package require globals
+package require tooltip 2
 
 namespace eval options_form {}
 
@@ -18,7 +19,7 @@ proc options_form::show_modal {} {
         { options_form::on_close }
     focus .options.columns_spinbox
     tkwait window .options
-    return $options_form::ok
+    return $::options_form::ok
 }
 
 
@@ -27,22 +28,22 @@ proc options_form::make_widgets {} {
     ttk::label .options.columns_label -text Columns -underline 2
     tk::spinbox .options.columns_spinbox -from 5 -to 30 -format %2.0f
     tooltip::tooltip .options.columns_spinbox \
-        "Columns (default $app::COLUMNS_DEFAULT)"
+        "Columns (default $::COLUMNS_DEFAULT)"
     ttk::label .options.rows_label -text Rows -underline 0
     tk::spinbox .options.rows_spinbox -from 5 -to 30 -format %2.0f
     tooltip::tooltip .options.rows_spinbox \
-        "Rows (default $app::ROWS_DEFAULT)"
+        "Rows (default $::ROWS_DEFAULT)"
     ttk::label .options.max_colors_label -text "Max. Colors" -underline 0
     tk::spinbox .options.max_colors_spinbox -from 2 \
-        -to [dict size $app::COLORS] -format %2.0f
+        -to [dict size $::COLORS] -format %2.0f
     tooltip::tooltip .options.max_colors_spinbox \
-        "Max. Colors (default $app::MAX_COLORS_DEFAULT)"
+        "Max. Colors (default $::MAX_COLORS_DEFAULT)"
     ttk::label .options.delay_label -text "Delay (ms)" -underline 0
     tk::spinbox .options.delay_spinbox -from 0 -to 1000 -format %4.0f \
         -increment 10
     tooltip::tooltip .options.delay_spinbox \
         "Delay to show tile movement (default\
-        $app::DELAY_MS_DEFAULT milliseconds)"
+        $::DELAY_MS_DEFAULT milliseconds)"
     ttk::label .options.fontsize_label -text "Font Size (pt)" -underline 0
     tk::spinbox .options.fontsize_spinbox -from 8 -to 20 -format %2.0f \
         -command { ui::update_fonts %s }
@@ -51,10 +52,10 @@ proc options_form::make_widgets {} {
         [dict get [font actual TkDefaultFont] -size] points)"
     ttk::frame .options.buttons
     ttk::button .options.buttons.ok_button -text OK -compound left \
-        -image [image create photo -file $::IMG_PATH/ok.png] \
+        -image [util::icon ok.svg $::ICON_SIZE] \
         -command { options_form::on_ok } -underline 0 
     ttk::button .options.buttons.close_button -text Cancel -compound left \
-        -image [image create photo -file $::IMG_PATH/close.png] \
+        -image [util::icon close.svg $::ICON_SIZE ] \
         -command { options_form::on_close } -underline 0 
 }
 
@@ -79,7 +80,7 @@ proc options_form::make_layout {} {
          .options.delay_label .options.delay_spinbox \
          .options.fontsize_label .options.fontsize_spinbox \
          .options.buttons.ok_button .options.buttons.close_button \
-         -padx $app::PAD -pady $app::PAD
+         -padx $::PAD -pady $::PAD
 }
 
 
@@ -99,20 +100,20 @@ proc options_form::make_bindings {} {
 proc options_form::load_options {} {
     set ini [::ini::open [util::get_ini_filename] -encoding utf-8 r]
     try {
-        set section $app::BOARD
+        set section $::INI_BOARD
         .options.columns_spinbox set \
-            [::ini::value $ini $section $app::COLUMNS \
-             $app::COLUMNS_DEFAULT]
+            [::ini::value $ini $section $::INI_COLUMNS \
+             $::COLUMNS_DEFAULT]
         .options.rows_spinbox set \
-            [::ini::value $ini $section $app::ROWS $app::ROWS_DEFAULT]
+            [::ini::value $ini $section $::INI_ROWS $::ROWS_DEFAULT]
         .options.max_colors_spinbox set \
-            [::ini::value $ini $section $app::MAX_COLORS \
-             $app::MAX_COLORS_DEFAULT]
+            [::ini::value $ini $section $::INI_MAX_COLORS \
+             $::MAX_COLORS_DEFAULT]
         .options.delay_spinbox set \
-            [::ini::value $ini $section $app::DELAY_MS \
-             $app::DELAY_MS_DEFAULT]
+            [::ini::value $ini $section $::INI_DELAY_MS \
+             $::DELAY_MS_DEFAULT]
         .options.fontsize_spinbox set \
-            [::ini::value $ini $app::WINDOW $app::FONTSIZE \
+            [::ini::value $ini $::INI_WINDOW $::INI_FONTSIZE \
              [dict get [font actual TkDefaultFont] -size]]
     } finally {
         ::ini::close $ini
@@ -123,16 +124,16 @@ proc options_form::load_options {} {
 proc options_form::on_ok {} {
     set ini [::ini::open [util::get_ini_filename] -encoding utf-8]
     try {
-        set section $app::BOARD
-        ::ini::set $ini $section $app::COLUMNS \
+        set section $::INI_BOARD
+        ::ini::set $ini $section $::INI_COLUMNS \
             [.options.columns_spinbox get]
-        ::ini::set $ini $section $app::ROWS \
+        ::ini::set $ini $section $::INI_ROWS \
             [.options.rows_spinbox get]
-        ::ini::set $ini $section $app::MAX_COLORS \
+        ::ini::set $ini $section $::INI_MAX_COLORS \
             [.options.max_colors_spinbox get]
-        ::ini::set $ini $section $app::DELAY_MS \
+        ::ini::set $ini $section $::INI_DELAY_MS \
             [.options.delay_spinbox get]
-        ::ini::set $ini $app::WINDOW $app::FONTSIZE \
+        ::ini::set $ini $::INI_WINDOW $::INI_FONTSIZE \
             [.options.fontsize_spinbox get]
         ::ini::commit $ini
     } finally {
@@ -148,7 +149,7 @@ proc options_form::on_close {} {
 
 
 proc options_form::do_close {{result false}} {
-    set options_form::ok $result
+    set ::options_form::ok $result
     grab release .options
     destroy .options
 }

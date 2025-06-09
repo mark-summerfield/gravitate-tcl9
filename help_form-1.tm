@@ -27,7 +27,7 @@ proc help_form::make_widgets {} {
     .help.text configure -state disabled
     ttk::scrollbar .help.vbar -command { .help.text yview }
     ttk::button .help.ok_button -text OK -compound left \
-        -image [image create photo -file $::IMG_PATH/ok.png] \
+        -image [util::icon ok.svg $::ICON_SIZE] \
         -command { help_form::on_close } -underline 0 
 }
 
@@ -36,7 +36,7 @@ proc help_form::make_layout {} {
     grid .help.text -row 0 -column 0 -sticky nsew
     grid .help.vbar -row 0 -column 1 -sticky ns
     grid .help.ok_button -row 1 -column 0 -columnspan 2
-    grid .help.text .help.vbar .help.ok_button -pady $app::PAD
+    grid .help.text .help.vbar .help.ok_button -pady $::PAD
     grid columnconfigure .help 0 -weight 1
     grid rowconfigure .help 0 -weight 1
 }

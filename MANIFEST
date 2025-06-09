@@ -1,6 +1,3 @@
-# TODO port to Tcl/Tk 9
-# TODO switch to SVG images
-
 gravitate.tcl
 app-1.tm
 main_window-1.tm

@@ -18,13 +18,16 @@ proc util::commas x {
 
 
 proc util::get_ini_filename {} {
+    set home [file home]
+    set names {}
     if {[tk windowingsystem] eq "win32"} {
-        set names {~/gravitate.ini $::APP_PATH/gravitate.ini}
+        lappend names [file join $home gravitate.ini] $::PATH/gravitate.ini
         set index 0
     } else {
-        set names {~/.config/gravitate.ini ~/.gravitate.ini
-                   $::APP_PATH/gravitate.ini}
-        set index [expr {[file isdirectory ~/.config] ? 0 : 1}]
+        lappend names [file join $home .config/gravitate.ini] \
+                      [file join $home .gravitate.ini] $::PATH/gravitate.ini
+        set index [expr {[file isdirectory [
+                            file join $home .config]] ? 0 : 1}]
     }
     foreach name $names {
         set name [file normalize $name]
@@ -41,19 +44,19 @@ proc util::get_ini_filename {} {
 proc util::make_default_ini name {
     set ini [::ini::open $name -encoding utf-8 w]
     try {
-        set section $app::BOARD
-        ::ini::set $ini $section $app::COLUMNS $app::COLUMNS_DEFAULT
-        ::ini::set $ini $section $app::ROWS $app::ROWS_DEFAULT
-        ::ini::set $ini $section $app::MAX_COLORS $app::MAX_COLORS_DEFAULT
-        ::ini::set $ini $section $app::DELAY_MS $app::DELAY_MS_DEFAULT
-        ::ini::set $ini $section $app::HIGH_SCORE $app::HIGH_SCORE_DEFAULT
-        set section $app::WINDOW
-        set invalid $app::INVALID
-        ::ini::set $ini $section $app::WINDOW_HEIGHT $invalid
-        ::ini::set $ini $section $app::WINDOW_WIDTH $invalid
-        ::ini::set $ini $section $app::WINDOW_X $invalid
-        ::ini::set $ini $section $app::WINDOW_Y $invalid
-        ::ini::set $ini $section $app::FONTSIZE \
+        set section $::INI_BOARD
+        ::ini::set $ini $section $::INI_COLUMNS $::COLUMNS_DEFAULT
+        ::ini::set $ini $section $::INI_ROWS $::ROWS_DEFAULT
+        ::ini::set $ini $section $::INI_MAX_COLORS $::MAX_COLORS_DEFAULT
+        ::ini::set $ini $section $::INI_DELAY_MS $::DELAY_MS_DEFAULT
+        ::ini::set $ini $section $::INI_HIGH_SCORE $::HIGH_SCORE_DEFAULT
+        set section $::INI_WINDOW
+        set invalid $::INVALID
+        ::ini::set $ini $section $::INI_WINDOW_HEIGHT $invalid
+        ::ini::set $ini $section $::INI_WINDOW_WIDTH $invalid
+        ::ini::set $ini $section $::INI_WINDOW_X $invalid
+        ::ini::set $ini $section $::INI_WINDOW_Y $invalid
+        ::ini::set $ini $section $::INI_FONTSIZE \
             [dict get [font actual TkDefaultFont] -size]
         ::ini::commit $ini
     } finally {

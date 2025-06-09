@@ -1,6 +1,7 @@
 #!/usr/bin/env wish
 # Copyright © 2020-25 Mark Summerfield. All rights reserved.
 
+package require actions
 package require board
 package require globals
 package require inifile 0
@@ -27,19 +28,21 @@ proc main_window::make_widgets {} {
     ttk::frame .main
     ttk::frame .main.toolbar
     ttk::button .main.toolbar.new -text New -style Toolbutton \
-        -image [util::icon new.svg] -command actions::on_new
+        -image [util::icon new.svg $::ICON_SIZE] -command actions::on_new
     tooltip::tooltip .main.toolbar.new "New game"
     ttk::button .main.toolbar.options -text Options -style Toolbutton \
-        -image [util::icon options.svg] -command actions::on_options
+        -image [util::icon options.svg $::ICON_SIZE] \
+        -command actions::on_options
     tooltip::tooltip .main.toolbar.options "Options…"
     ttk::button .main.toolbar.about -text About -style Toolbutton \
-        -image [util::icon about.svg] -command actions::on_about
+        -image [util::icon about.svg $::ICON_SIZE] \
+        -command actions::on_about
     tooltip::tooltip .main.toolbar.about "About"
     ttk::button .main.toolbar.help -text Help -style Toolbutton \
-        -image [util::icon help.svg] -command actions::on_help
+        -image [util::icon help.svg $::ICON_SIZE] -command actions::on_help
     tooltip::tooltip .main.toolbar.help "Help"
     ttk::button .main.toolbar.quit -text Quit -style Toolbutton \
-        -image [util::icon quit.svg] \
+        -image [util::icon quit.svg $::ICON_SIZE] \
         -command actions::on_quit
     tooltip::tooltip .main.toolbar.quit "Quit"
     board::make
@@ -88,14 +91,14 @@ proc main_window::read_options {} {
     set ini [::ini::open [util::get_ini_filename] -encoding utf-8 r]
     try {
         set section $::INI_BOARD
-        set board::high_score \
+        set ::board::high_score \
             [::ini::value $ini $section $::INI_HIGH_SCORE -1]
-        if {$board::high_score == -1} {
-            set board::high_score [::ini::value $ini $section \
+        if {$::board::high_score == -1} {
+            set ::board::high_score [::ini::value $ini $section \
                 $::INI_HIGH_SCORE_COMPAT $::HIGH_SCORE_DEFAULT]
         }
         .main.status_bar.score_label configure \
-            -text "0 • [util::commas $board::high_score]"
+            -text "0 • [util::commas $::board::high_score]"
         set section $::INI_WINDOW
         set invalid $::INVALID
         set scale [::ini::value $ini $section $::INI_SCALE 1.0]
@@ -123,10 +126,10 @@ proc main_window::read_options {} {
 
 
 proc main_window::status_message {msg {ms 5000}} {
-    after cancel $main_window::status_timer_id
+    after cancel $::main_window::status_timer_id
     .main.status_bar.label configure -text $msg
     if {$ms > 0} {
-        set main_window::status_timer_id \
+        set ::main_window::status_timer_id \
             [after $ms [::lambda {} {
                 .main.status_bar.label configure -text "" }]]
     }

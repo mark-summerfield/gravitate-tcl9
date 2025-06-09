@@ -1,13 +1,12 @@
 #!/usr/bin/env wish
 # Copyright © 2020-25 Mark Summerfield. All rights reserved.
 
-
-const VERSION 8.0.0
+const VERSION 9.0.0
 const INVALID -1
 const PAD 3
 const VGAP 6
 const BACKGROUND_COLOR "#FFFEE0"
-
+const ICON_SIZE 32
 
 const COLUMNS_DEFAULT 9
 const ROWS_DEFAULT 9
@@ -30,16 +29,17 @@ const GAME_OVER_EVENT <<GameOver>>
 const SCORE_EVENT <<Score>>
 
 const INI_BOARD Board
-    const INI_COLUMNS columns
-    const INI_ROWS rows
-    const INI_MAX_COLORS maxColors
-    const INI_DELAY_MS delayMs
-    const INI_HIGH_SCORE highScore
-    const INI_HIGH_SCORE_COMPAT HighScore
+const INI_COLUMNS columns
+const INI_ROWS rows
+const INI_MAX_COLORS maxColors
+const INI_DELAY_MS delayMs
+const INI_HIGH_SCORE highScore
+const INI_HIGH_SCORE_COMPAT HighScore
+
 const INI_WINDOW Window
-    const INI_WINDOW_HEIGHT height
-    const INI_WINDOW_WIDTH width
-    const INI_WINDOW_X x
-    const INI_WINDOW_Y y
-    const INI_FONTSIZE fontSize
-    const INI_SCALE scale
+const INI_WINDOW_HEIGHT height
+const INI_WINDOW_WIDTH width
+const INI_WINDOW_X x
+const INI_WINDOW_Y y
+const INI_FONTSIZE fontSize
+const INI_SCALE scale

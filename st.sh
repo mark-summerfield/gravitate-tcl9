@@ -6,13 +6,18 @@ nagelfar.sh \
     | grep -v Found.constant.. \
     | grep -v Wrong.number.of.arguments.*to..actions::on_game_over \
     | grep -v Wrong.number.of.arguments.*to..ini::open \
-    | grep -v board.*tcl.*Suspicious.variable.*board::drawing \
-    | grep -v board.*tcl.*Unknown.variable.*dark \
-    | grep -v board.*tcl.*Unknown.variable.*height \
-    | grep -v board.*tcl.*Unknown.variable.*light \
-    | grep -v board.*tcl.*Unknown.variable.*move \
-    | grep -v board.*tcl.*Unknown.variable.*n[xy] \
-    | grep -v board.*tcl.*Unknown.variable.*width \
+    | grep -v gravitate.tcl.*Unknown.variable..PATH \
+    | grep -v board.*tm.*Suspicious.variable.*board::drawing \
+    | grep -v board.*tm.*Unknown.variable.*dark \
+    | grep -v board.*tm.*Unknown.variable.*height \
+    | grep -v board.*tm.*Unknown.variable.*light \
+    | grep -v board.*tm.*Unknown.variable.*move \
+    | grep -v board.*tm.*Unknown.variable.*n[xy] \
+    | grep -v board.*tm.*Unknown.variable.*width \
+    | grep -v tm.*Unknown.command.*lambda \
+    | grep -v options_form.*tm.*Unknown.command..ini:: \
+    | grep -v Unknown.subcommand.*home.*to.*file \
+    | grep -v Unknown.command.*const \
     | grep -v Unknown.command.*delete_tile \
     | grep -v Unknown.command.*::ini:: \
     | grep -v Unknown.command.*::lambda \

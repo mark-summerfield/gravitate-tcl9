@@ -1,8 +1,6 @@
 #!/usr/bin/env wish
 # Copyright © 2020-25 Mark Summerfield. All rights reserved.
 
-package require inifile
-
 namespace eval ui {}
 
 
@@ -25,9 +23,9 @@ proc ui::prepare_form {window title on_close {modal true} {dx 20} {dy 40}} {
 }
 
 
-proc ui::add_text_tags {widget} {
+proc ui::add_text_tags widget {
     set margin 12
-    $widget tag configure spaceabove -spacing1 [expr {$app::VGAP * 2}]
+    $widget tag configure spaceabove -spacing1 [expr {$::VGAP * 2}]
     $widget tag configure margins -lmargin1 $margin -lmargin2 $margin \
         -rmargin $margin
     $widget tag configure center -justify center
@@ -56,7 +54,7 @@ proc ui::make_fonts {} {
 }
 
 
-proc ui::update_fonts {size} {
+proc ui::update_fonts size {
     font configure big -size [expr {int(ceil($size * 3.5))}]
     font configure h1 -size [expr {int(ceil($size * 1.2))}]
     font configure default -size $size
