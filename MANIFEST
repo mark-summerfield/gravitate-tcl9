@@ -1,0 +1,24 @@
+# TODO port to Tcl/Tk 9
+# TODO switch to SVG images
+
+gravitate.tcl
+app-1.tm
+main_window-1.tm
+about_form-1.tm
+help_form-1.tm
+options_form-1.tm
+actions-1.tm
+board-1.tm
+board_delete_tile-1.tm
+util-1.tm
+ui-1.tm
+prepare_gui-1.tm
+globals-1.tm # VERSION
+
+st.sh
+
+README.md
+
+makewin.sh
+
+# vim: syn=yaml
