@@ -111,8 +111,11 @@ proc options_form::load_options {} {
         .options.delay_spinbox set \
             [::ini::value $ini $section $::INI_DELAY_MS \
              $::DELAY_MS_DEFAULT]
-        .options.scale_spinbox set \
-            [::ini::value $ini $::INI_WINDOW $::INI_SCALE [tk scaling]]
+        # This ignores the -format option (hence the use of format)
+        # .options.scale_spinbox set \
+        #     [::ini::value $ini $::INI_WINDOW $::INI_SCALE [tk scaling]]
+         .options.scale_spinbox set [format %.2f \
+             [::ini::value $ini $::INI_WINDOW $::INI_SCALE [tk scaling]]]
     } finally {
         ::ini::close $ini
     }
