@@ -17,7 +17,7 @@ proc about_form::show_modal {} {
 
 proc about_form::make_widgets {} {
     tk::toplevel .about
-    set height 12
+    set height 14
     tk::text .about.text -width 50 -height $height -wrap word \
         -background "#F0F0F0" -spacing3 $::VGAP
     populate_about_text
@@ -75,6 +75,7 @@ proc about_form::populate_about_text {} {
         set year "2020-[string range $year end-1 end]"
     }
     set bits [expr {8 * $::tcl_platform(wordSize)}]
+    set distro [exec lsb_release -ds]
     .about.text insert end \
         "https://mark-summerfield.github.io/gravitate.html\n" \
         {center green url}
@@ -82,7 +83,8 @@ proc about_form::populate_about_text {} {
                             \nAll Rights Reserved.\n" {center green}
     .about.text insert end "License: GPLv3.\n" {center green}
     .about.text insert end "[string repeat " " 60]\n" {center hr}
-    .about.text insert end "Tcl/Tk $::tcl_patchLevel ${bits}-bit on\
-        $::tcl_platform(os) $::tcl_platform(osVersion)\
-        $::tcl_platform(machine).\n" center
+    .about.text insert end "Tcl/Tk $::tcl_patchLevel (${bits}-bit)\n" center
+    if {$distro != ""} { .about.text insert end "$distro\n" center }
+    .about.text insert end "$::tcl_platform(os) $::tcl_platform(osVersion)\
+        ($::tcl_platform(machine))\n" center
 }
