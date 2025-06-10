@@ -26,28 +26,29 @@ proc options_form::show_modal {} {
 proc options_form::make_widgets {} {
     tk::toplevel .options
     ttk::label .options.columns_label -text Columns -underline 2
-    ttk::spinbox .options.columns_spinbox -from 5 -to 30 -format %2.0f
+    ttk::spinbox .options.columns_spinbox -from 5 -to 30 -format %.0f
     tooltip::tooltip .options.columns_spinbox \
         "Columns (default $::COLUMNS_DEFAULT)"
     ttk::label .options.rows_label -text Rows -underline 0
-    ttk::spinbox .options.rows_spinbox -from 5 -to 30 -format %2.0f
+    ttk::spinbox .options.rows_spinbox -from 5 -to 30 -format %.0f
     tooltip::tooltip .options.rows_spinbox \
         "Rows (default $::ROWS_DEFAULT)"
     ttk::label .options.max_colors_label -text "Max. Colors" -underline 0
     ttk::spinbox .options.max_colors_spinbox -from 2 \
-        -to [dict size $::COLORS] -format %2.0f
+        -to [dict size $::COLORS] -format %.0f
     tooltip::tooltip .options.max_colors_spinbox \
         "Max. Colors (default $::MAX_COLORS_DEFAULT)"
     ttk::label .options.delay_label -text "Delay (ms)" -underline 0
-    ttk::spinbox .options.delay_spinbox -from 0 -to 1000 -format %4.0f \
+    ttk::spinbox .options.delay_spinbox -from 0 -to 1000 -format %.0f \
         -increment 10
     tooltip::tooltip .options.delay_spinbox \
         "Delay to show tile movement (default\
         $::DELAY_MS_DEFAULT milliseconds)"
     ttk::label .options.scale_label -text "Scale" -underline 0
-    ttk::spinbox .options.scale_spinbox -from 1.0 -to 10.0 -format %5.2f \
+    ttk::spinbox .options.scale_spinbox -from 1.0 -to 10.0 -format %.2f \
         -increment 0.1
-    tooltip::tooltip .options.scale_spinbox "Application's scale"
+    tooltip::tooltip .options.scale_spinbox \
+            "Application's scale (default 1)"
     ttk::frame .options.buttons
     ttk::button .options.buttons.ok_button -text OK -compound left \
         -image [util::icon ok.svg $::ICON_SIZE] \
