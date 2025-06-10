@@ -77,7 +77,7 @@ proc about_form::populate_about_text {} {
     set bits [expr {8 * $::tcl_platform(wordSize)}]
     set distro [exec lsb_release -ds]
     .about.text insert end \
-        "https://mark-summerfield.github.io/gravitate.html\n" \
+        "http://mark-summerfield.github.io/gravitate.html\n" \
         {center green url}
     .about.text insert end "Copyright © $year Mark Summerfield.\
                             \nAll Rights Reserved.\n" {center green}
