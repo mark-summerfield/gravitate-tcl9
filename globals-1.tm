@@ -41,5 +41,4 @@ const INI_WINDOW_HEIGHT height
 const INI_WINDOW_WIDTH width
 const INI_WINDOW_X x
 const INI_WINDOW_Y y
-const INI_FONTSIZE fontSize
 const INI_SCALE scale

@@ -44,12 +44,10 @@ proc options_form::make_widgets {} {
     tooltip::tooltip .options.delay_spinbox \
         "Delay to show tile movement (default\
         $::DELAY_MS_DEFAULT milliseconds)"
-    ttk::label .options.fontsize_label -text "Font Size (pt)" -underline 0
-    tk::spinbox .options.fontsize_spinbox -from 8 -to 20 -format %2.0f \
-        -command { ui::update_fonts %s }
-    tooltip::tooltip .options.fontsize_spinbox \
-        "Base Font Size (default\
-        [dict get [font actual TkDefaultFont] -size] points)"
+    ttk::label .options.scale_label -text "Scale" -underline 0
+    tk::spinbox .options.scale_spinbox -from 1.0 -to 10.0 -format %2.2f \
+        -increment 0.1
+    tooltip::tooltip .options.scale_spinbox "Application's scale"
     ttk::frame .options.buttons
     ttk::button .options.buttons.ok_button -text OK -compound left \
         -image [util::icon ok.svg $::ICON_SIZE] \
@@ -69,8 +67,8 @@ proc options_form::make_layout {} {
     grid .options.max_colors_spinbox -row 2 -column 1 -sticky ew
     grid .options.delay_label -row 3 -column 0
     grid .options.delay_spinbox -row 3 -column 1 -sticky ew
-    grid .options.fontsize_label -row 4 -column 0
-    grid .options.fontsize_spinbox -row 4 -column 1 -sticky ew
+    grid .options.scale_label -row 4 -column 0
+    grid .options.scale_spinbox -row 4 -column 1 -sticky ew
     grid .options.buttons.ok_button -row 0 -column 0
     grid .options.buttons.close_button -row 0 -column 1
     grid .options.buttons -row 5 -column 0 -columnspan 2
@@ -78,7 +76,7 @@ proc options_form::make_layout {} {
          .options.rows_label .options.rows_spinbox \
          .options.max_colors_label .options.max_colors_spinbox \
          .options.delay_label .options.delay_spinbox \
-         .options.fontsize_label .options.fontsize_spinbox \
+         .options.scale_label .options.scale_spinbox \
          .options.buttons.ok_button .options.buttons.close_button \
          -padx $::PAD -pady $::PAD
 }
@@ -86,7 +84,7 @@ proc options_form::make_layout {} {
 
 proc options_form::make_bindings {} {
     bind .options <Alt-d> { focus .options.delay_spinbox }
-    bind .options <Alt-f> { focus .options.fontsize_spinbox }
+    bind .options <Alt-s> { focus .options.scale_spinbox }
     bind .options <Alt-l> { focus .options.columns_spinbox }
     bind .options <Alt-m> { focus .options.max_colors_spinbox }
     bind .options <Alt-r> { focus .options.rows_spinbox }
@@ -112,9 +110,8 @@ proc options_form::load_options {} {
         .options.delay_spinbox set \
             [::ini::value $ini $section $::INI_DELAY_MS \
              $::DELAY_MS_DEFAULT]
-        .options.fontsize_spinbox set \
-            [::ini::value $ini $::INI_WINDOW $::INI_FONTSIZE \
-             [dict get [font actual TkDefaultFont] -size]]
+        .options.scale_spinbox set \
+            [::ini::value $ini $::INI_WINDOW $::INI_SCALE [tk scaling]]
     } finally {
         ::ini::close $ini
     }
@@ -122,6 +119,7 @@ proc options_form::load_options {} {
 
 
 proc options_form::on_ok {} {
+    set scale [.options.scale_spinbox get]
     set ini [::ini::open [util::get_ini_filename] -encoding utf-8]
     try {
         set section $::INI_BOARD
@@ -133,12 +131,12 @@ proc options_form::on_ok {} {
             [.options.max_colors_spinbox get]
         ::ini::set $ini $section $::INI_DELAY_MS \
             [.options.delay_spinbox get]
-        ::ini::set $ini $::INI_WINDOW $::INI_FONTSIZE \
-            [.options.fontsize_spinbox get]
+        ::ini::set $ini $::INI_WINDOW $::INI_SCALE $scale
         ::ini::commit $ini
     } finally {
         ::ini::close $ini
     }
+    tk scaling $scale
     do_close true
 }
 

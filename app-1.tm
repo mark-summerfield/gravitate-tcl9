@@ -9,6 +9,7 @@ namespace eval app {}
 
 
 proc app::main {} {
+    read_scale
     wm withdraw .
     wm title . [tk appname]
     wm iconname . [tk appname]
@@ -22,4 +23,18 @@ proc app::main {} {
     wm deiconify .
     raise .
     focus .
+}
+
+proc read_scale {} {
+    set ini [::ini::open [util::get_ini_filename] -encoding utf-8 r]
+    try {
+        set scale [::ini::value $ini $::INI_WINDOW $::INI_SCALE $::INVALID]
+        if {$scale != $::INVALID} {
+            tk scaling $scale
+        } elseif {[info exists env(TK_SCALING)]} {
+            tk scaling $env(TK_SCALING)
+        }
+    } finally {
+        ::ini::close $ini
+    }
 }

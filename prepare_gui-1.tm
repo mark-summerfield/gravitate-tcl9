@@ -1,6 +1,7 @@
 # Copyright © 2024-25 Mark Summerfield. All rights reserved.
 
-if {[info exists env(TK_SCALING)]} {tk scaling $env(TK_SCALING)}
+# # use this line if no scale configured
+# if {[info exists env(TK_SCALING)]} {tk scaling $env(TK_SCALING)}
 ttk::style theme use clam
 option add *tearOff 0
 option add *insertOffTime 0

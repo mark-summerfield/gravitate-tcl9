@@ -47,7 +47,7 @@ proc actions::on_quit {} {
     set section $::INI_WINDOW
     set ini [::ini::open [util::get_ini_filename] -encoding utf-8]
     try {
-        set scale [::ini::value $ini $section $::INI_SCALE 1.0]
+        set scale [tk scaling]
         ::ini::set $ini $section $::INI_SCALE $scale
         ::ini::set $ini $section $::INI_WINDOW_WIDTH \
             [expr {int($width / $scale)}]

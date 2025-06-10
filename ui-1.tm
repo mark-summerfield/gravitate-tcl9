@@ -54,15 +54,6 @@ proc ui::make_fonts {} {
 }
 
 
-proc ui::update_fonts size {
-    font configure big -size [expr {int(ceil($size * 3.5))}]
-    font configure h1 -size [expr {int(ceil($size * 1.2))}]
-    font configure default -size $size
-    font configure bold -size $size
-    font configure italic -size $size
-}
-
-
 # Modified copy of Tcl/Tk's palette.tcl's ::tk::Darken
 # percent < 100 darken (1 = darkest); percent > 100 brighten
 proc ui::adjusted_color {color percent} {

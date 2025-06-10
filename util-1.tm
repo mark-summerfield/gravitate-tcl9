@@ -1,7 +1,7 @@
 #!/usr/bin/env wish
 # Copyright © 2020-25 Mark Summerfield. All rights reserved.
 
-package require inifile 0
+package require config
 
 namespace eval util {}
 
@@ -11,23 +11,16 @@ proc util::icon {svg {width 0}} {
     image create photo -file $::APPPATH/images/$svg {*}$opt
 }
 
-
-proc util::commas x {
-    regsub -all \\d(?=(\\d{3})+([regexp -inline {\.\d*$} $x]$)) $x {\0,}
-}
-
-
 proc util::get_ini_filename {} {
     set home [file home]
-    set names [list]
     if {[tk windowingsystem] eq "win32"} {
-        lappend names [file join $home gravitate.ini] \
-                      $::APPPATH/gravitate.ini
+        set names [list [file join $home gravitate.ini] \
+                        $::APPPATH/gravitate.ini]
         set index 0
     } else {
-        lappend names [file join $home .config/gravitate.ini] \
-                      [file join $home .gravitate.ini] \
-                      $::APPPATH/gravitate.ini
+        set names [list [file join $home .config/gravitate.ini] \
+                        [file join $home .gravitate.ini] \
+                        $::APPPATH/gravitate.ini]
         set index [expr {[file isdirectory [
                             file join $home .config]] ? 0 : 1}]
     }
@@ -38,34 +31,14 @@ proc util::get_ini_filename {} {
         }
     }
     set name [lindex $names $index]
-    make_default_ini $name
+    config::make_default_ini $name
     return $name
 }
 
 
-proc util::make_default_ini name {
-    set ini [::ini::open $name -encoding utf-8 w]
-    try {
-        set section $::INI_BOARD
-        ::ini::set $ini $section $::INI_COLUMNS $::COLUMNS_DEFAULT
-        ::ini::set $ini $section $::INI_ROWS $::ROWS_DEFAULT
-        ::ini::set $ini $section $::INI_MAX_COLORS $::MAX_COLORS_DEFAULT
-        ::ini::set $ini $section $::INI_DELAY_MS $::DELAY_MS_DEFAULT
-        ::ini::set $ini $section $::INI_HIGH_SCORE $::HIGH_SCORE_DEFAULT
-        set section $::INI_WINDOW
-        set invalid $::INVALID
-        ::ini::set $ini $section $::INI_WINDOW_HEIGHT $invalid
-        ::ini::set $ini $section $::INI_WINDOW_WIDTH $invalid
-        ::ini::set $ini $section $::INI_WINDOW_X $invalid
-        ::ini::set $ini $section $::INI_WINDOW_Y $invalid
-        ::ini::set $ini $section $::INI_FONTSIZE \
-            [dict get [font actual TkDefaultFont] -size]
-        ::ini::commit $ini
-    } finally {
-        ::ini::close $ini
-    }
+proc util::commas x {
+    regsub -all \\d(?=(\\d{3})+([regexp -inline {\.\d*$} $x]$)) $x {\0,}
 }
-
 
 proc util::open_webpage url {
     if {[tk windowingsystem] eq "win32"} {

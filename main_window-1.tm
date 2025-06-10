@@ -3,6 +3,7 @@
 
 package require actions
 package require board
+package require config
 package require globals
 package require inifile 0
 package require lambda 1
@@ -101,7 +102,7 @@ proc main_window::read_options {} {
             -text "0 • [util::commas $::board::high_score]"
         set section $::INI_WINDOW
         set invalid $::INVALID
-        set scale [::ini::value $ini $section $::INI_SCALE 1.0]
+        set scale [tk scaling]
         set width [::ini::value $ini $section $::INI_WINDOW_WIDTH $invalid]
         set height [::ini::value $ini $section \
                     $::INI_WINDOW_HEIGHT $invalid]
@@ -114,10 +115,6 @@ proc main_window::read_options {} {
             set width [expr {int($scale * $width)}]
             set height [expr {int($scale * $height)}]
             wm geometry . "${width}x$height+$x+$y"
-        }
-        set size [::ini::value $ini $section $::INI_FONTSIZE $invalid]
-        if {$size != $invalid} {
-            ui::update_fonts $size
         }
     } finally {
         ::ini::close $ini

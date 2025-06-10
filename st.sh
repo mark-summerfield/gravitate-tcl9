@@ -16,10 +16,11 @@ nagelfar.sh \
     | grep -v board.*tm.*Unknown.variable.*width \
     | grep -v tm.*Unknown.command.*lambda \
     | grep -v options_form.*tm.*Unknown.command..ini:: \
+    | grep -v util.*tm.*Unknown.command.*make_default_ini \
     | grep -v Unknown.subcommand.*home.*to.*file \
     | grep -v Unknown.command.*const \
     | grep -v Unknown.command.*delete_tile \
-    | grep -v Unknown.command.*::ini:: \
+    | grep -v Unknown.command.*ini:: \
     | grep -v Unknown.command.*::lambda \
     | grep -v Unknown.command.*_form::show.* \
     | grep -v Unknown.command.*board::* \
