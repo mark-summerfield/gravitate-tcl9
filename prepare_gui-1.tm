@@ -1,7 +1,10 @@
 # Copyright © 2024-25 Mark Summerfield. All rights reserved.
 
-# # use this line if no scale configured
-# if {[info exists env(TK_SCALING)]} {tk scaling $env(TK_SCALING)}
+catch {
+    set fh [open [file join [file home] .wishinit.tcl]]
+    eval [read $fh]
+    close $fh
+}
 ttk::style theme use clam
 option add *tearOff 0
 option add *insertOffTime 0

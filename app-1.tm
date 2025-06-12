@@ -31,8 +31,6 @@ proc read_scale {} {
         set scale [::ini::value $ini $::INI_WINDOW $::INI_SCALE $::INVALID]
         if {$scale != $::INVALID} {
             tk scaling $scale
-        } elseif {[info exists env(TK_SCALING)]} {
-            tk scaling $env(TK_SCALING)
         }
     } finally {
         ::ini::close $ini
