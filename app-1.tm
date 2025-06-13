@@ -9,6 +9,7 @@ namespace eval app {}
 
 
 proc app::main {} {
+    prepare_gui
     read_scale
     wm withdraw .
     wm title . [tk appname]
@@ -34,5 +35,13 @@ proc read_scale {} {
         }
     } finally {
         ::ini::close $ini
+    }
+}
+
+proc prepare_gui {} {
+    catch {
+        set fh [open [file join [file home] .wishinit.tcl]]
+        eval [read $fh]
+        close $fh
     }
 }
