@@ -1,7 +1,7 @@
 #!/usr/bin/env wish
 # Copyright © 2020-25 Mark Summerfield. All rights reserved.
 
-package require inifile 0
+package require inifile
 
 namespace eval config {}
 

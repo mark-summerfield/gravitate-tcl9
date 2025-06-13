@@ -5,7 +5,7 @@ package require actions
 package require board
 package require config
 package require globals
-package require inifile 0
+package require inifile
 package require lambda 1
 package require tooltip 2
 
