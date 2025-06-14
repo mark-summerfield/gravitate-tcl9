@@ -12,22 +12,10 @@ proc app::main {} {
     wishinit
     tk appname Gravitate
     read_scale
-    wm withdraw .
-    wm title . [tk appname]
-    wm iconname . [tk appname]
-    wm iconphoto . -default [util::icon icon.svg]
-    wm minsize . 260 300
-    wm protocol . WM_DELETE_WINDOW actions::on_quit
-    ui::make_fonts
-    option add *font default
-    ttk::style configure TButton -font default
     main_window::show
-    wm deiconify .
-    raise .
-    focus .
 }
 
-proc app::wishinit {} {
+proc wishinit {} {
     catch {
         set fh [open [file join [file home] .wishinit.tcl]]
         set raw [read $fh]

@@ -16,12 +16,33 @@ variable main_window::status_timer_id {}
 
 
 proc main_window::show {} {
+    prepare
     make_widgets
     make_layout
     make_bindings
     read_options
     actions::on_new
     status_message "Click a tile to play…"
+    display
+}
+
+
+proc main_window::prepare {} {
+    wm withdraw .
+    wm title . [tk appname]
+    wm iconname . [tk appname]
+    wm iconphoto . -default [util::icon icon.svg]
+    wm minsize . 260 300
+    wm protocol . WM_DELETE_WINDOW actions::on_quit
+    ui::make_fonts
+    option add *font default
+    ttk::style configure TButton -font default
+}
+
+proc main_window::display {} {
+    wm deiconify .
+    raise .
+    focus .
 }
 
 
