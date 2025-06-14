@@ -51,11 +51,3 @@ proc read_scale {} {
         ::ini::close $ini
     }
 }
-
-proc prepare_gui {} {
-    catch {
-        set fh [open [file join [file home] .wishinit.tcl]]
-        eval [read $fh]
-        close $fh
-    }
-}
