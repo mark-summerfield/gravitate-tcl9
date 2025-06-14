@@ -1,4 +1,4 @@
-#!/usr/bin/env wish
+#!/usr/bin/env wish9
 # Copyright © 2020-25 Mark Summerfield. All rights reserved.
 
 const VERSION 9.0.0
@@ -6,7 +6,7 @@ const INVALID -1
 const PAD 3
 const VGAP 6
 const BACKGROUND_COLOR "#FFFEE0"
-const ICON_SIZE 24
+const ICON_SIZE [expr {int(32 * [tk scaling])}]
 
 const COLUMNS_DEFAULT 9
 const ROWS_DEFAULT 9

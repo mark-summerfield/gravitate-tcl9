@@ -1,4 +1,4 @@
-#!/usr/bin/env wish
+#!/usr/bin/env wish9
 # Copyright © 2020-25 Mark Summerfield. All rights reserved.
 
 package require actions

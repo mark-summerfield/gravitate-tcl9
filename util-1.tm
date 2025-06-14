@@ -1,4 +1,4 @@
-#!/usr/bin/env wish
+#!/usr/bin/env wish9
 # Copyright © 2020-25 Mark Summerfield. All rights reserved.
 
 package require config
@@ -6,9 +6,11 @@ package require config
 namespace eval util {}
 
 proc util::icon {svg {width 0}} {
-    set opt [expr {$width ? [list -format [
-        list svg -scaletowidth $width]] : ""}]
-    image create photo -file $::APPPATH/images/$svg {*}$opt
+    if {$width == 0} {
+        return [image create photo -file $::APPPATH/images/$svg]
+    }
+    image create photo -file $::APPPATH/images/$svg \
+        -format "svg -scaletowidth $width"
 }
 
 proc util::get_ini_filename {} {
