@@ -6,7 +6,6 @@ const INVALID -1
 const PAD 3
 const VGAP 6
 const BACKGROUND_COLOR "#FFFEE0"
-const ICON_SIZE [expr {int(32 * [tk scaling])}]
 
 const COLUMNS_DEFAULT 9
 const ROWS_DEFAULT 9
