@@ -9,7 +9,8 @@ namespace eval app {}
 
 
 proc app::main {} {
-    prepare_gui
+    wishinit
+    tk appname Gravitate
     read_scale
     wm withdraw .
     wm title . [tk appname]
@@ -24,6 +25,19 @@ proc app::main {} {
     wm deiconify .
     raise .
     focus .
+}
+
+proc app::wishinit {} {
+    catch {
+        set fh [open [file join [file home] .wishinit.tcl]]
+        set raw [read $fh]
+        close $fh
+        eval $raw
+    }
+    const LINEHEIGHT [expr {[font metrics font -linespace] * 1.0125}]
+    ttk::style configure Treeview -rowheight $LINEHEIGHT
+    ttk::style configure TCheckbutton -indicatorsize \
+        [expr {$LINEHEIGHT * 0.75}]
 }
 
 proc read_scale {} {

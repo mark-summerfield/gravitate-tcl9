@@ -9,7 +9,6 @@ board-1.tm
 board_delete_tile-1.tm
 util-1.tm
 ui-1.tm
-prepare_gui-1.tm
 config-1.tm
 globals-1.tm # VERSION
 

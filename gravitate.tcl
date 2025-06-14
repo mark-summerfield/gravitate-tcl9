@@ -4,10 +4,6 @@
 const APPPATH [file normalize [file dirname [info script]]]
 tcl::tm::path add $APPPATH
 
-package require prepare_gui
-
-tk appname Gravitate
-
 package require app
 
 app::main

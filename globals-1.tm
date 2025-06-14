@@ -6,7 +6,7 @@ const INVALID -1
 const PAD 3
 const VGAP 6
 const BACKGROUND_COLOR "#FFFEE0"
-const ICON_SIZE 32
+const ICON_SIZE 24
 
 const COLUMNS_DEFAULT 9
 const ROWS_DEFAULT 9
