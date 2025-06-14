@@ -14,6 +14,7 @@ nagelfar.sh \
     | grep -v board.*tm.*Unknown.variable.*move \
     | grep -v board.*tm.*Unknown.variable.*n[xy] \
     | grep -v board.*tm.*Unknown.variable.*width \
+    | grep -v app.*tm.*Unknown.variable.*LINEHEIGHT \
     | grep -v tm.*Unknown.command.*lambda \
     | grep -v options_form.*tm.*Unknown.command..ini:: \
     | grep -v util.*tm.*Unknown.command.*make_default_ini \
