@@ -6,24 +6,22 @@ package require globals
 package require lambda 1
 package require struct::list 1
 
-namespace eval board {}
-
-
-variable board::high_score $::HIGH_SCORE_DEFAULT
-variable board::score 0
-variable board::game_over true
-variable board::user_won false
-variable board::columns $::COLUMNS_DEFAULT
-variable board::rows $::ROWS_DEFAULT
-variable board::max_colors $::MAX_COLORS_DEFAULT
-variable board::delay_ms $::DELAY_MS_DEFAULT
-variable board::selectedx $::INVALID
-variable board::selectedy $::INVALID
-variable board::tiles {}
-variable board::drawing false
-variable board::moving false
-variable board::DELAY_SCALER 5
-
+namespace eval board {
+    variable high_score $::HIGH_SCORE_DEFAULT
+    variable score 0
+    variable game_over true
+    variable user_won false
+    variable columns $::COLUMNS_DEFAULT
+    variable rows $::ROWS_DEFAULT
+    variable max_colors $::MAX_COLORS_DEFAULT
+    variable delay_ms $::DELAY_MS_DEFAULT
+    variable selectedx $::INVALID
+    variable selectedy $::INVALID
+    variable tiles {}
+    variable drawing false
+    variable moving false
+    variable DELAY_SCALER 5
+}
 
 proc board::make {} {
     tk::canvas .main.board -background $::BACKGROUND_COLOR

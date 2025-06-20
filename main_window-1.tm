@@ -9,10 +9,9 @@ package require inifile
 package require lambda 1
 package require tooltip 2
 
-namespace eval main_window {}
-
-
-variable main_window::status_timer_id {}
+namespace eval main_window {
+    variable status_timer_id {}
+}
 
 
 proc main_window::show {} {
