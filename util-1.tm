@@ -6,7 +6,7 @@ package require config
 namespace eval util {}
 
 proc util::icon {svg {width 0}} {
-    if {$width == 0} {
+    if {!$width} {
         return [image create photo -file $::APPPATH/images/$svg]
     }
     image create photo -file $::APPPATH/images/$svg \
