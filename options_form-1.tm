@@ -5,11 +5,12 @@ package require globals
 package require tooltip 2
 
 namespace eval options_form {
-    variable ok false
+    variable ok
 }
 
 
 proc options_form::show_modal {} {
+    set ::options_form::ok false
     make_widgets
     make_layout
     make_bindings

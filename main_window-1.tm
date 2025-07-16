@@ -3,7 +3,6 @@
 
 package require actions
 package require board
-package require config
 package require globals
 package require inifile
 package require lambda 1

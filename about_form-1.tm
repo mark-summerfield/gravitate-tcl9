@@ -17,25 +17,25 @@ proc about_form::show_modal {} {
 
 proc about_form::make_widgets {} {
     tk::toplevel .about
+    wm resizable .about false false
     set height 14
     tk::text .about.text -width 50 -height $height -wrap word \
         -background "#F0F0F0" -spacing3 $::VGAP
     populate_about_text
     .about.text configure -state disabled
-    ttk::button .about.ok_button -text OK -compound left \
-        -image [util::icon ok.svg $::ICON_SIZE] \
-        -command { about_form::on_close } -underline 0 
+    ttk::button .about.close_button -text Close -compound left \
+        -image [util::icon close.svg $::ICON_SIZE] \
+        -command { about_form::on_close }
 }
 
 
 proc about_form::make_layout {} {
     grid .about.text -sticky nsew -pady $::PAD
-    grid .about.ok_button -pady $::PAD
+    grid .about.close_button -pady $::PAD
 }
 
 
 proc about_form::make_bindings {} {
-    bind .about <Alt-o> { about_form::on_close }
     bind .about <Escape> { about_form::on_close }
     bind .about <Return> { about_form::on_close }
     .about.text tag bind url <Double-1> {
@@ -48,7 +48,7 @@ proc about_form::on_click_url index {
     set indexes [.about.text tag prevrange url $index]
     set url [string trim [.about.text get {*}$indexes]]
     if {$url ne ""} {
-        if {![string match -nocase http://* $url]} {
+        if {![string match -nocase http*://* $url]} {
             set url [string cat http:// $url]
         }
         util::open_webpage $url
