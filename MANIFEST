@@ -1,4 +1,5 @@
-gravitate.tcl
+# NOTE old-style; don't use as a model
+gravitate.tk
 app-1.tm
 main_window-1.tm
 about_form-1.tm
