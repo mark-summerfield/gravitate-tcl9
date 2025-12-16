@@ -10,7 +10,7 @@ namespace eval options_form {
 
 
 proc options_form::show_modal {} {
-    set ::options_form::ok false
+    set ::options_form::ok 0
     make_widgets
     make_layout
     make_bindings
@@ -141,14 +141,14 @@ proc options_form::on_ok {} {
         ::ini::close $ini
     }
     tk scaling $scale
-    do_close true
+    do_close 1
 }
 
 
 proc options_form::on_close {} { do_close }
 
 
-proc options_form::do_close {{result false}} {
+proc options_form::do_close {{result 0}} {
     set ::options_form::ok $result
     grab release .options
     destroy .options

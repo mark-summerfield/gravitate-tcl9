@@ -17,7 +17,7 @@ proc about_form::show_modal {} {
 
 proc about_form::make_widgets {} {
     tk::toplevel .about
-    wm resizable .about false false
+    wm resizable .about 0 0
     set height 14
     tk::text .about.text -width 50 -height $height -wrap word \
         -background "#F0F0F0" -spacing3 $::VGAP

@@ -12,7 +12,7 @@ proc help_form::show {} {
         make_layout
         make_bindings
         ui::prepare_form .help "Help — [tk appname]" \
-            { help_form::on_close } false
+            { help_form::on_close } 0
     }
     focus .help.text
 }

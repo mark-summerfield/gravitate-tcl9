@@ -21,20 +21,20 @@ proc board::is_legal {x y color} {
     # A legal click is on a colored tile that is adjacent to another
     # tile of the same color.
     if {$x > 0 && [lindex $::board::tiles [expr {$x - 1}] $y] eq $color} {
-        return true
+        return 1
     }
     if {$x + 1 < $::board::columns && 
             [lindex $::board::tiles [expr {$x + 1}] $y] eq $color} {
-        return true
+        return 1
     }
     if {$y > 0 && [lindex $::board::tiles $x [expr {$y - 1}]] eq $color} {
-        return true
+        return 1
     }
     if {$y + 1 < $::board::rows &&
             [lindex $::board::tiles $x [expr {$y + 1}]] eq $color} {
-        return true
+        return 1
     }
-    return false
+    return 0
 }
 
 
@@ -106,16 +106,16 @@ proc board::close_tiles_up size {
 
 proc board::move_tiles {} {
     set moves {}
-    set moved true
+    set moved 1
     set number_proc [lindex [struct::list shuffle {
         shuffled_numbers rippled_numbers_outer rippled_numbers_inner}] 0]
     while {$moved} {
-        set moved false
+        set moved 0
         foreach x [$number_proc $::board::columns] {
             foreach y [$number_proc $::board::rows] {
                 if {[lindex $::board::tiles $x $y] ne $::INVALID_COLOR } {
                     if {[move_is_possible_ $x $y moves]} {
-                        set moved true
+                        set moved 1
                         break
                     }
                 }
@@ -176,7 +176,7 @@ proc board::move_is_possible_ {x y moves_} {
         if {[dict exists $moves $new_point]} {
             lassign [dict get $moves $new_point] vx vy
             if {$vx == $x && $vy == $y} {
-                return false ;# Avoid endless loop
+                return 0 ;# Avoid endless loop
             }
         }
         if {$move} {
@@ -185,15 +185,15 @@ proc board::move_is_possible_ {x y moves_} {
             lset ::board::tiles $x $y $::INVALID_COLOR
             set delay [expr {max(1, int(round($::board::delay_ms /
                                         $::board::DELAY_SCALER)))}]
-            set ::board::moving true
+            set ::board::moving 1
             draw $delay
             vwait ::board::moving
             set point [list $x $y]
             dict set moves $point $new_point
-            return true
+            return 1
         }
     }
-    return false
+    return 0
 }
 
 
@@ -238,12 +238,12 @@ proc board::nearest_to_middle_ {x y empties move_ nx_ ny_} {
         }
     }
     if {![util::isnan $shortest_radius] && $old_radius > $shortest_radius} {
-        set move true
+        set move 1
         set nx $rx
         set ny $ry
         return
     }
-    set move false
+    set move 0
     set nx $x
     set ny $y
 }
@@ -252,23 +252,23 @@ proc board::nearest_to_middle_ {x y empties move_ nx_ ny_} {
 proc board::is_square {x y} {
     if {$x > 0 && [lindex $::board::tiles [expr {$x - 1}] $y] ne
             $::INVALID_COLOR} {
-        return true
+        return 1
     }
     if {$x + 1 < $::board::columns &&
             [lindex $::board::tiles [expr {$x + 1}] $y] ne
             $::INVALID_COLOR} {
-        return true
+        return 1
     }
     if {$y > 0 && [lindex $::board::tiles $x [expr {$y - 1}]] ne
             $::INVALID_COLOR} {
-        return true
+        return 1
     }
     if {$y + 1 < $::board::rows &&
             [lindex $::board::tiles $x [expr {$y + 1}]] ne
             $::INVALID_COLOR} {
-        return true
+        return 1
     }
-    return false
+    return 0
 }
 
 
@@ -297,8 +297,8 @@ proc board::check_game_over {} {
 
 proc board::check_tiles {} {
     set count_for_color {}
-    set ::board::user_won true
-    set can_move false
+    set ::board::user_won 1
+    set can_move 0
     for {set x 0} {$x < $::::board::columns} {incr x} {
         for {set y 0} {$y < $::board::rows} {incr y} {
             set color [lindex $::board::tiles $x $y]
@@ -308,21 +308,21 @@ proc board::check_tiles {} {
                 } else {
                     dict incr count_for_color $color
                 }
-                set ::board::user_won false
+                set ::board::user_won 0
                 if {[is_legal $x $y $color]} {
-                    set can_move true
+                    set can_move 1
                 }
             }
         }
     }
     dict for {color count} $count_for_color {
         if {$count == 1} {
-            set can_move false
+            set can_move 0
             break
         }
     }
     if {$::board::user_won || !$can_move} {
-        set ::board::game_over true
+        set ::board::game_over 1
         draw
     }
     return $can_move

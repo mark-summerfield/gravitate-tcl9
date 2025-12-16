@@ -9,8 +9,8 @@ package require struct::list 1
 namespace eval board {
     variable high_score $::HIGH_SCORE_DEFAULT
     variable score 0
-    variable game_over true
-    variable user_won false
+    variable game_over 1
+    variable user_won 0
     variable columns $::COLUMNS_DEFAULT
     variable rows $::ROWS_DEFAULT
     variable max_colors $::MAX_COLORS_DEFAULT
@@ -18,8 +18,8 @@ namespace eval board {
     variable selectedx $::INVALID
     variable selectedy $::INVALID
     variable tiles {}
-    variable drawing false
-    variable moving false
+    variable drawing 0
+    variable moving 0
     variable DELAY_SCALER 5
 }
 
@@ -41,8 +41,8 @@ proc board::make_bindings {} {
 
 
 proc board::new_game {} {
-    set ::board::game_over false
-    set ::board::user_won false
+    set ::board::game_over 0
+    set ::board::user_won 0
     set ::board::score 0
     set ::board::selectedx $::INVALID
     set ::board::selectedy $::INVALID
@@ -164,7 +164,7 @@ proc board::draw {{delay_ms 0}} {
         after $delay_ms ::board::draw
     } else {
         draw_board
-        set ::board::moving false
+        set ::board::moving 0
     }
 }
 
@@ -186,7 +186,7 @@ proc board::draw_board {} {
     if {![llength $::board::tiles] || $::board::drawing} {
         return
     }
-    set $::board::drawing true
+    set $::board::drawing 1
     .main.board delete all
     tile_size_ width height
     set edge [expr {min($width, $height) / 9.0}]
@@ -198,7 +198,7 @@ proc board::draw_board {} {
     if {$::board::user_won || $::board::game_over} {
         draw_game_over
     }
-    set $::board::drawing false
+    set $::board::drawing 0
 }
 
 
