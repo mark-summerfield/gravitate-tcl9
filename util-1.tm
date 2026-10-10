@@ -34,7 +34,7 @@ proc util::get_ini_filename {} {
     }
     set name [lindex $names $index]
     config::make_default_ini $name
-    return $name
+    set name
 }
 
 
@@ -56,4 +56,4 @@ proc util::open_webpage url {
 }
 
 
-proc util::isnan x { return [expr {![string is double $x] || $x != $x}] }
+proc util::isnan x { expr {![string is double $x] || $x != $x} }

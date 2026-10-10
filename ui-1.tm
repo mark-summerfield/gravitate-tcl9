@@ -4,7 +4,7 @@
 namespace eval ui {}
 
 
-proc ui::prepare_form {window title on_close {modal true} {dx 20} {dy 40}} {
+proc ui::prepare_form {window title on_close {modal 1} {dx 20} {dy 40}} {
     wm withdraw $window
     if {$modal} {
         wm transient $window .
@@ -34,8 +34,8 @@ proc ui::add_text_tags widget {
     $widget tag configure green -foreground darkgreen
     $widget tag configure bold -font bold
     $widget tag configure italic -font italic
-    $widget tag configure url -underline true -underlinefg darkgreen
-    $widget tag configure hr -overstrike true -overstrikefg lightgray \
+    $widget tag configure url -underline 1 -underlinefg darkgreen
+    $widget tag configure hr -overstrike 1 -overstrikefg lightgray \
         -spacing3 10
 }
 
